@@ -1,0 +1,1613 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bitácora de Transformación — 23 Nov al 20 Ene</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #09090b;
+      --bg-secondary: #121215;
+      --bg-tertiary: #18181c;
+      --bg-elevated: #202026;
+      --border-subtle: #26262e;
+      --border-strong: #3a3a46;
+      --text-primary: #f5f5f7;
+      --text-secondary: #a1a1aa;
+      --text-muted: #6e6e77;
+      --accent: #e4e4e7;
+      --accent-gold: #d4af37;
+      --success: #4ade80;
+      --success-bg: rgba(74, 222, 128, 0.12);
+      --warning: #fbbf24;
+      --warning-bg: rgba(251, 191, 36, 0.12);
+      --danger: #f87171;
+      --danger-bg: rgba(248, 113, 113, 0.12);
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: 'Arimo', sans-serif;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 64px;
+    }
+
+    h1, h2, h3, h4, .font-display {
+      font-family: 'Montserrat', sans-serif;
+      letter-spacing: -0.02em;
+    }
+
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 28px 20px;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 20px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border-subtle);
+      margin-bottom: 28px;
+    }
+
+    .brand-eyebrow {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--accent-gold);
+      margin-bottom: 6px;
+    }
+
+    header h1 {
+      font-size: 26px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    .header-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    button {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-tertiary);
+      color: var(--text-primary);
+      padding: 9px 15px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      letter-spacing: 0.02em;
+    }
+
+    button:hover:not(:disabled) {
+      background: var(--bg-elevated);
+      border-color: var(--text-secondary);
+    }
+
+    button:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    button.primary {
+      background: var(--text-primary);
+      color: var(--bg-primary);
+      border-color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    button.primary:hover {
+      background: #ffffff;
+    }
+
+    button.danger {
+      border-color: rgba(248, 113, 113, 0.35);
+      color: var(--danger);
+    }
+
+    button.danger:hover {
+      background: var(--danger-bg);
+    }
+
+    /* Top KPI Strip */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    .kpi-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+    }
+
+    .kpi-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+
+    .kpi-value {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .kpi-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .progress-bar-bg {
+      width: 100%;
+      height: 5px;
+      background: var(--bg-elevated);
+      border-radius: 99px;
+      overflow: hidden;
+      margin-top: 10px;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--accent-gold);
+      transition: width 0.3s ease;
+    }
+
+    /* Main Grid */
+    .main-grid {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    @media (max-width: 920px) {
+      .main-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .panel {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+    }
+
+    .panel-title {
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .panel-desc {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-bottom: 18px;
+    }
+
+    /* Mini Calendar */
+    .calendar-legend {
+      display: flex;
+      gap: 14px;
+      font-size: 11px;
+      color: var(--text-secondary);
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+    }
+
+    .cal-weekday {
+      text-align: center;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--text-muted);
+      padding-bottom: 4px;
+    }
+
+    .cal-day {
+      aspect-ratio: 1;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.15s ease;
+      user-select: none;
+    }
+
+    .cal-day:hover {
+      border-color: var(--text-secondary);
+    }
+
+    .cal-day.active {
+      border-color: var(--accent-gold);
+      box-shadow: 0 0 0 1px var(--accent-gold);
+    }
+
+    .cal-day.completed {
+      background: #1c1c22;
+      border-color: var(--border-strong);
+    }
+
+    .cal-day.completed .day-num {
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+
+    .cal-day.completed::after {
+      content: "✓";
+      position: absolute;
+      top: 2px;
+      right: 4px;
+      font-size: 9px;
+      color: var(--success);
+    }
+
+    .cal-day.photo-milestone::before {
+      content: "";
+      position: absolute;
+      bottom: 3px;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--accent-gold);
+    }
+
+    .day-num {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .day-month {
+      font-size: 8px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* Day Inspector */
+    .day-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--border-subtle);
+      margin-bottom: 20px;
+    }
+
+    .day-badge {
+      display: inline-block;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 99px;
+      background: var(--bg-elevated);
+      color: var(--accent-gold);
+      margin-bottom: 6px;
+    }
+
+    .day-title {
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .complete-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-strong);
+      background: var(--bg-tertiary);
+      cursor: pointer;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .complete-toggle.is-done {
+      background: var(--success-bg);
+      border-color: rgba(74, 222, 128, 0.4);
+      color: var(--success);
+    }
+
+    /* Day Navigation Control Bar */
+    .day-control-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      margin-bottom: 18px;
+    }
+
+    .day-control-nav {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+      min-width: 240px;
+    }
+
+    .day-control-nav select {
+      flex: 1;
+      font-size: 13px;
+      padding: 8px 10px;
+    }
+
+    .day-control-status {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      color: var(--text-secondary);
+    }
+
+    /* Targets & Dynamic Calculation Box */
+    .targets-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .target-box {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 16px;
+    }
+
+    .target-box-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .target-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .target-pill {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-primary);
+      background: var(--bg-elevated);
+      padding: 3px 9px;
+      border-radius: 4px;
+    }
+
+    .adjustment-note {
+      font-size: 11px;
+      color: var(--warning);
+      margin-bottom: 10px;
+      min-height: 16px;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .input-group label {
+      font-size: 11px;
+      color: var(--text-secondary);
+    }
+
+    input[type="number"], input[type="text"], select, textarea {
+      background: var(--bg-primary);
+      border: 1px solid var(--border-strong);
+      color: var(--text-primary);
+      font-family: 'Arimo', sans-serif;
+      font-size: 14px;
+      padding: 9px 12px;
+      border-radius: var(--radius-sm);
+      width: 100%;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--accent-gold);
+    }
+
+    /* Status Feedback Banner */
+    .feedback-banner {
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 22px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-tertiary);
+      color: var(--text-secondary);
+    }
+
+    .feedback-banner.yay {
+      background: var(--success-bg);
+      border-color: rgba(74, 222, 128, 0.35);
+      color: var(--success);
+    }
+
+    .feedback-banner.awesome {
+      background: rgba(212, 175, 55, 0.14);
+      border-color: rgba(212, 175, 55, 0.45);
+      color: var(--accent-gold);
+    }
+
+    .feedback-banner.oops {
+      background: var(--danger-bg);
+      border-color: rgba(248, 113, 113, 0.35);
+      color: var(--danger);
+    }
+
+    /* Exercise & Calculation */
+    .metrics-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .calc-summary {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      margin-top: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 12px;
+    }
+
+    .calc-item span {
+      color: var(--text-secondary);
+      display: block;
+      font-size: 11px;
+    }
+
+    .calc-item strong {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 15px;
+      color: var(--text-primary);
+    }
+
+    /* Daily Checklist (Moved to bottom of Day Inspector) */
+    .checklist-section {
+      margin-top: 22px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .section-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+    }
+
+    .checklist-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 10px;
+    }
+
+    .check-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 13px 15px;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .check-card:hover {
+      border-color: var(--border-strong);
+    }
+
+    .check-card input[type="checkbox"] {
+      width: 17px;
+      height: 17px;
+      accent-color: var(--accent-gold);
+      cursor: pointer;
+    }
+
+    .check-card.checked span {
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+
+    /* 5-Day Milestone Section (Measurements + 13-Photo Collage) */
+    .milestone-section {
+      margin-top: 32px;
+    }
+
+    .measurements-table-wrapper {
+      overflow-x: auto;
+      margin-bottom: 28px;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      text-align: left;
+    }
+
+    th {
+      background: var(--bg-tertiary);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-secondary);
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border-subtle);
+      background: var(--bg-secondary);
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    td input[type="number"] {
+      width: 78px;
+      padding: 6px 8px;
+      font-size: 13px;
+    }
+
+    .diff-badge {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .diff-good {
+      color: var(--success);
+      background: var(--success-bg);
+    }
+
+    /* Photo Collage Grid (13 spaces for every 5 days across 59 days) */
+    .collage-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+      gap: 14px;
+    }
+
+    .photo-slot {
+      background: var(--bg-tertiary);
+      border: 1px dashed var(--border-strong);
+      border-radius: var(--radius-md);
+      aspect-ratio: 3 / 4;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 10px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+
+    .photo-slot:hover {
+      border-color: var(--accent-gold);
+    }
+
+    .photo-slot.has-image {
+      border-style: solid;
+      border-color: var(--border-subtle);
+      padding: 0;
+    }
+
+    .photo-slot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .photo-slot-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 2;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .photo-slot.has-image .photo-slot-header {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      right: 8px;
+      background: rgba(9, 9, 11, 0.78);
+      padding: 4px 8px;
+      border-radius: 4px;
+      color: var(--text-primary);
+    }
+
+    .photo-placeholder {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 11px;
+      margin: auto 0;
+    }
+
+    .photo-placeholder span {
+      display: block;
+      font-size: 20px;
+      margin-bottom: 4px;
+      color: var(--text-secondary);
+    }
+
+    .remove-photo-btn {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      background: rgba(9, 9, 11, 0.85);
+      color: var(--danger);
+      border: 1px solid rgba(248, 113, 113, 0.4);
+      padding: 4px 8px;
+      font-size: 10px;
+      border-radius: 4px;
+      z-index: 3;
+    }
+
+    /* Modal for Export / Import */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 20px;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-lg);
+      max-width: 640px;
+      width: 100%;
+      padding: 24px;
+    }
+
+    .modal-card h3 {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .modal-card p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-bottom: 14px;
+    }
+
+    .modal-card textarea {
+      height: 180px;
+      font-family: monospace;
+      font-size: 11px;
+      margin-bottom: 16px;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <div class="brand-eyebrow">Protocolo Personal · 59 Días</div>
+        <h1>Bitácora de Control & Transformación</h1>
+        <div class="subtitle">Lunes 23 de Noviembre — Miércoles 20 de Enero · Meta: 77 kg → 67 kg</div>
+      </div>
+      <div class="header-actions">
+        <button onclick="openExportModal()">Exportar / Importar Código</button>
+        <button class="danger" onclick="resetAllData()">Reiniciar Datos</button>
+      </div>
+    </header>
+
+    <!-- KPI Summary -->
+    <section class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Progreso del Calendario</div>
+        <div class="kpi-value" id="kpiDaysCompleted">0 / 59 días</div>
+        <div class="kpi-sub" id="kpiPercentText">0% completado</div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" id="kpiProgressBar" style="width: 0%"></div>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-label">Peso Esperado del Día</div>
+        <div class="kpi-value" id="kpiExpectedWeight">77.00 kg</div>
+        <div class="kpi-sub" id="kpiExpectedWeightSub">Proyección lineal (77 kg → 67 kg)</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-label">Meta de Peso Final</div>
+        <div class="kpi-value" id="kpiRemainingWeight">10.00 kg</div>
+        <div class="kpi-sub">Diferencia proyectada para llegar a 67.0 kg</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-label">Reducción Total Medidas</div>
+        <div class="kpi-value" id="kpiMeasurementsDelta">0.0 cm</div>
+        <div class="kpi-sub">Suma acumulada (Cintura, Ombligo, Brazo, Glúteo)</div>
+      </div>
+    </section>
+
+    <!-- Main Interactive Workspace -->
+    <div class="main-grid">
+      <!-- Left: Mini Interactive Calendar -->
+      <aside class="panel">
+        <h2 class="panel-title">Calendario de Seguimiento</h2>
+        <p class="panel-desc">Selecciona un día para registrar o haz doble clic para tacharlo.</p>
+
+        <div class="calendar-legend">
+          <div class="legend-item"><span class="dot" style="background: var(--accent-gold);"></span> Día activo / Foto</div>
+          <div class="legend-item"><span class="dot" style="background: var(--success);"></span> Tachado</div>
+        </div>
+
+        <div class="calendar-grid" id="calendarGrid">
+          <!-- Generated via JS -->
+        </div>
+      </aside>
+
+      <!-- Right: Selected Day Control -->
+      <main class="panel" id="dayInspector">
+        <div class="day-header">
+          <div>
+            <span class="day-badge" id="dayIndexBadge">DÍA 1 DE 59</span>
+            <h2 class="day-title" id="selectedDayTitle">Lunes 23 de Noviembre</h2>
+          </div>
+          <button class="complete-toggle" id="toggleDayCompleteBtn" onclick="toggleCurrentDayCompleted()">
+            <span id="toggleDayCompleteIcon">○</span>
+            <span id="toggleDayCompleteText">Tachar día como cumplido</span>
+          </button>
+        </div>
+
+        <!-- Day-by-Day Navigation & Control -->
+        <div class="day-control-bar">
+          <div class="day-control-nav">
+            <button id="prevDayBtn" onclick="navigateDay(-1)" title="Día anterior">← Anterior</button>
+            <select id="daySelectorDropdown" onchange="selectDayFromDropdown(this.value)" aria-label="Seleccionar día">
+              <!-- Populated via JS -->
+            </select>
+            <button id="nextDayBtn" onclick="navigateDay(1)" title="Día siguiente">Siguiente →</button>
+          </div>
+          <div class="day-control-status" id="dayControlSummaryText">
+            Hábitos del día: 0 de 4
+          </div>
+        </div>
+
+        <!-- Dynamic Feedback Banner -->
+        <div class="feedback-banner" id="calorieFeedbackBanner">
+          Registra tus calorías consumidas hoy para evaluar tu balance diario.
+        </div>
+
+        <!-- Calories & Fasting Dynamic Targets -->
+        <div class="targets-row">
+          <div class="target-box">
+            <div class="target-box-header">
+              <span class="target-title">Meta de Calorías Hoy</span>
+              <span class="target-pill" id="targetCaloriesDisplay">1057 kcal</span>
+            </div>
+            <div class="adjustment-note" id="calorieAdjustmentNote">Base semanal: 1057 kcal (L-V) / 1068 kcal (S-D)</div>
+            <div class="input-group">
+              <label for="caloriesConsumedInput">Calorías consumidas hoy (kcal)</label>
+              <input type="number" id="caloriesConsumedInput" placeholder="Ej. 1050" min="0" step="1" oninput="updateCurrentDayField('caloriesConsumed', this.value)" />
+            </div>
+          </div>
+
+          <div class="target-box">
+            <div class="target-box-header">
+              <span class="target-title">Meta de Ayuno (16/18 h)</span>
+              <span class="target-pill" id="targetFastingDisplay">16.0 hrs</span>
+            </div>
+            <div class="adjustment-note" id="fastingAdjustmentNote">Meta estándar: 16 a 18 horas</div>
+            <div class="input-group">
+              <label for="fastingHoursInput">Horas de ayuno cumplidas hoy</label>
+              <input type="number" id="fastingHoursInput" placeholder="Ej. 16" min="0" max="36" step="0.5" oninput="updateCurrentDayField('fastingHours', this.value)" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Exercise Expenditure Calculator (No daily weight input) -->
+        <div class="metrics-row">
+          <div class="input-group">
+            <label for="exerciseIntensityInput">Actividad física extra / intensidad del día</label>
+            <select id="exerciseIntensityInput" onchange="updateCurrentDayField('exerciseLevel', this.value)">
+              <option value="0">Sin ejercicio adicional (0 kcal)</option>
+              <option value="150">Brazos y abdomen sencillo (~150 kcal)</option>
+              <option value="300">Cardio moderado o gym (~300 kcal)</option>
+              <option value="450">Brazos/abdomen + cardio/gym (~450 kcal)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="calc-summary">
+          <div class="calc-item">
+            <span>Peso esperado para este día</span>
+            <strong id="dayExpectedWeightLabel">77.00 kg</strong>
+          </div>
+          <div class="calc-item">
+            <span>Gasto estimado por ejercicio</span>
+            <strong id="dayBurnedCaloriesLabel">0 kcal</strong>
+          </div>
+          <div class="calc-item">
+            <span>Balance neto (Ingesta - Ejercicio)</span>
+            <strong id="dayNetCaloriesLabel">0 kcal</strong>
+          </div>
+          <div class="calc-item">
+            <span>Estado del control diario</span>
+            <strong id="dayControlStateLabel">Pendiente</strong>
+          </div>
+        </div>
+
+        <!-- Daily Habits Checklist (At the bottom of the daily panel) -->
+        <div class="checklist-section">
+          <div class="section-label">Lista de Verificación Diaria</div>
+          <div class="checklist-grid">
+            <label class="check-card" id="card_fasting">
+              <input type="checkbox" id="chk_fasting" onchange="toggleChecklist('fasting', this.checked)" />
+              <span>Hacer ayuno (16/18 hrs)</span>
+            </label>
+            <label class="check-card" id="card_armsAbs">
+              <input type="checkbox" id="chk_armsAbs" onchange="toggleChecklist('armsAbs', this.checked)" />
+              <span>Hacer ejercicios sencillos para brazos y abdomen</span>
+            </label>
+            <label class="check-card" id="card_cardioGym">
+              <input type="checkbox" id="chk_cardioGym" onchange="toggleChecklist('cardioGym', this.checked)" />
+              <span>Hacer cardio o gym</span>
+            </label>
+            <label class="check-card" id="card_calories">
+              <input type="checkbox" id="chk_calories" onchange="toggleChecklist('calories', this.checked)" />
+              <span>Comer las calorías correctas por día</span>
+            </label>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- 5-Day Milestones: Measurements & 13-Space Photo Collage -->
+    <section class="panel milestone-section">
+      <h2 class="panel-title">Control Antropométrico cada 5 Días</h2>
+      <p class="panel-desc">Registro de medidas corporales en centímetros. Tus medidas iniciales del Día 1 ya están cargadas como línea base.</p>
+
+      <div class="measurements-table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Control</th>
+              <th>Fecha</th>
+              <th>Cintura (cm)</th>
+              <th>Ombligo (cm)</th>
+              <th>Brazo (cm)</th>
+              <th>Glúteo (cm)</th>
+              <th>Cambio Total</th>
+            </tr>
+          </thead>
+          <tbody id="measurementsTableBody">
+            <!-- Generated via JS -->
+          </tbody>
+        </table>
+      </div>
+
+      <h2 class="panel-title" style="margin-top: 28px;">Collage de Progreso Visual (13 Espacios · Cada 5 Días)</h2>
+      <p class="panel-desc">Se han calculado exactamente 13 espacios para cubrir los 59 días del reto (del 23 de noviembre al 20 de enero).</p>
+
+      <div class="collage-grid" id="photoCollageGrid">
+        <!-- 13 slots generated via JS -->
+      </div>
+    </section>
+  </div>
+
+  <!-- Export / Import Modal -->
+  <div class="modal-backdrop" id="exportModal">
+    <div class="modal-card">
+      <h3>Respaldar o Restaurar Progreso</h3>
+      <p>Copia este código para guardar tu progreso actual en un archivo de texto, o pega un respaldo previo para restaurar todos tus registros y fotos.</p>
+      <textarea id="exportCodeArea" spellcheck="false"></textarea>
+      <div class="modal-actions">
+        <button onclick="copyExportCode()">Copiar Código</button>
+        <button class="primary" onclick="importBackupCode()">Importar y Restaurar</button>
+        <button onclick="closeExportModal()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const STORAGE_KEY = 'bitacora_transformacion_v1';
+    const START_WEIGHT = 77.0;
+    const GOAL_WEIGHT = 67.0;
+    const TOTAL_DAYS = 59; // Lunes 23 Nov a Miércoles 20 Ene
+
+    const WEEKDAYS_FULL = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+    const MONTHS_ES = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+    const MONTHS_FULL = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+
+    function buildSchedule() {
+      const list = [];
+      const baseDate = new Date(2026, 10, 23); // Lunes 23 de Noviembre
+      for (let i = 0; i < TOTAL_DAYS; i++) {
+        const d = new Date(baseDate);
+        d.setDate(baseDate.getDate() + i);
+        const dow = d.getDay();
+        const isWeekend = (dow === 0 || dow === 6);
+        const baseCalories = isWeekend ? 1068 : 1057;
+        const expectedWeight = +(START_WEIGHT - ((START_WEIGHT - GOAL_WEIGHT) * (i / (TOTAL_DAYS - 1)))).toFixed(2);
+        const isMilestone = (i % 5 === 0) || (i === TOTAL_DAYS - 1);
+
+        list.push({
+          index: i,
+          dayNumber: i + 1,
+          dateObj: d,
+          dow,
+          isWeekend,
+          baseCalories,
+          expectedWeight,
+          isMilestone,
+          shortDate: `${d.getDate()} ${MONTHS_ES[d.getMonth()]}`,
+          fullDate: `${WEEKDAYS_FULL[dow]} ${d.getDate()} de ${MONTHS_FULL[d.getMonth()]}`
+        });
+      }
+      return list;
+    }
+
+    const SCHEDULE = buildSchedule();
+    const MILESTONE_DAYS = SCHEDULE.filter(d => d.isMilestone); // 13 checkpoints
+
+    function getDefaultState() {
+      const days = {};
+      SCHEDULE.forEach(d => {
+        days[d.index] = {
+          completed: false,
+          caloriesConsumed: '',
+          fastingHours: '',
+          exerciseLevel: '0',
+          checklist: {
+            fasting: false,
+            armsAbs: false,
+            cardioGym: false,
+            calories: false
+          }
+        };
+      });
+
+      const milestones = {};
+      MILESTONE_DAYS.forEach((m, idx) => {
+        milestones[m.index] = {
+          cintura: idx === 0 ? 91 : '',
+          ombligo: idx === 0 ? 98 : '',
+          brazo: idx === 0 ? 32 : '',
+          gluteo: idx === 0 ? 109 : '',
+          photo: ''
+        };
+      });
+
+      return {
+        selectedDayIndex: 0,
+        days,
+        milestones
+      };
+    }
+
+    let state = loadState();
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return getDefaultState();
+        const parsed = JSON.parse(raw);
+        const def = getDefaultState();
+        return {
+          selectedDayIndex: parsed.selectedDayIndex ?? 0,
+          days: { ...def.days, ...(parsed.days || {}) },
+          milestones: { ...def.milestones, ...(parsed.milestones || {}) }
+        };
+      } catch (e) {
+        return getDefaultState();
+      }
+    }
+
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function computeDynamicTargets() {
+      const targets = [];
+      let caloriePenaltyNextDay = 0;
+      let fastingExtraNextDay = 0;
+
+      for (let i = 0; i < TOTAL_DAYS; i++) {
+        const sched = SCHEDULE[i];
+        const entry = state.days[i];
+
+        const targetCalories = Math.max(0, Math.round(sched.baseCalories - caloriePenaltyNextDay));
+        const targetFasting = +(16 + fastingExtraNextDay).toFixed(1);
+
+        targets.push({
+          targetCalories,
+          caloriePenaltyApplied: caloriePenaltyNextDay,
+          targetFasting,
+          fastingExtraApplied: fastingExtraNextDay
+        });
+
+        const consumed = parseFloat(entry.caloriesConsumed);
+        if (!isNaN(consumed) && consumed > targetCalories) {
+          caloriePenaltyNextDay = consumed - targetCalories;
+        } else {
+          caloriePenaltyNextDay = 0;
+        }
+
+        const fasted = parseFloat(entry.fastingHours);
+        if (!isNaN(fasted) && fasted > 0 && fasted < targetFasting) {
+          fastingExtraNextDay = +(targetFasting - fasted).toFixed(1);
+        } else {
+          fastingExtraNextDay = 0;
+        }
+      }
+      return targets;
+    }
+
+    function populateDayDropdown() {
+      const select = document.getElementById('daySelectorDropdown');
+      if (!select) return;
+      select.innerHTML = '';
+      SCHEDULE.forEach(d => {
+        const entry = state.days[d.index];
+        const opt = document.createElement('option');
+        opt.value = d.index;
+        opt.textContent = `${entry.completed ? '✓ ' : ''}Día ${d.dayNumber} — ${d.fullDate}`;
+        if (d.index === state.selectedDayIndex) opt.selected = true;
+        select.appendChild(opt);
+      });
+    }
+
+    function navigateDay(offset) {
+      const nextIdx = state.selectedDayIndex + offset;
+      if (nextIdx >= 0 && nextIdx < TOTAL_DAYS) {
+        state.selectedDayIndex = nextIdx;
+        saveState();
+        renderAll();
+      }
+    }
+
+    function selectDayFromDropdown(val) {
+      const idx = parseInt(val, 10);
+      if (!isNaN(idx) && idx >= 0 && idx < TOTAL_DAYS) {
+        state.selectedDayIndex = idx;
+        saveState();
+        renderAll();
+      }
+    }
+
+    function renderAll() {
+      const dynamicTargets = computeDynamicTargets();
+      renderKPIs();
+      renderCalendar();
+      renderDayInspector(dynamicTargets);
+      renderMeasurementsTable();
+      renderPhotoCollage();
+    }
+
+    function renderKPIs() {
+      let completedCount = 0;
+      SCHEDULE.forEach(d => {
+        if (state.days[d.index].completed) completedCount++;
+      });
+
+      const pct = Math.round((completedCount / TOTAL_DAYS) * 100);
+      document.getElementById('kpiDaysCompleted').textContent = `${completedCount} / ${TOTAL_DAYS} días`;
+      document.getElementById('kpiPercentText').textContent = `${pct}% completado`;
+      document.getElementById('kpiProgressBar').style.width = `${pct}%`;
+
+      const activeSched = SCHEDULE[state.selectedDayIndex];
+      document.getElementById('kpiExpectedWeight').textContent = `${activeSched.expectedWeight.toFixed(2)} kg`;
+      document.getElementById('kpiExpectedWeightSub').textContent = `Proyección para el Día ${activeSched.dayNumber} (${activeSched.shortDate})`;
+
+      const remaining = Math.max(0, activeSched.expectedWeight - GOAL_WEIGHT);
+      document.getElementById('kpiRemainingWeight').textContent = `${remaining.toFixed(2)} kg`;
+
+      const baseSum = 91 + 98 + 32 + 109;
+      let latestSum = baseSum;
+      MILESTONE_DAYS.forEach(m => {
+        const ms = state.milestones[m.index];
+        const c = parseFloat(ms.cintura);
+        const o = parseFloat(ms.ombligo);
+        const b = parseFloat(ms.brazo);
+        const g = parseFloat(ms.gluteo);
+        if (!isNaN(c) && !isNaN(o) && !isNaN(b) && !isNaN(g)) {
+          latestSum = c + o + b + g;
+        }
+      });
+      const deltaCm = latestSum - baseSum;
+      const sign = deltaCm > 0 ? '+' : '';
+      document.getElementById('kpiMeasurementsDelta').textContent = `${sign}${deltaCm.toFixed(1)} cm`;
+    }
+
+    function renderCalendar() {
+      const grid = document.getElementById('calendarGrid');
+      grid.innerHTML = '';
+
+      const orderedHeaders = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
+      orderedHeaders.forEach(h => {
+        const el = document.createElement('div');
+        el.className = 'cal-weekday';
+        el.textContent = h;
+        grid.appendChild(el);
+      });
+
+      SCHEDULE.forEach(d => {
+        const entry = state.days[d.index];
+        const cell = document.createElement('div');
+        cell.className = 'cal-day';
+        if (d.index === state.selectedDayIndex) cell.classList.add('active');
+        if (entry.completed) cell.classList.add('completed');
+        if (d.isMilestone) cell.classList.add('photo-milestone');
+
+        cell.innerHTML = `
+          <span class="day-num">${d.dateObj.getDate()}</span>
+          <span class="day-month">${MONTHS_ES[d.dateObj.getMonth()]}</span>
+        `;
+
+        cell.onclick = () => {
+          state.selectedDayIndex = d.index;
+          saveState();
+          renderAll();
+        };
+
+        cell.ondblclick = (e) => {
+          e.stopPropagation();
+          state.days[d.index].completed = !state.days[d.index].completed;
+          saveState();
+          renderAll();
+        };
+
+        grid.appendChild(cell);
+      });
+    }
+
+    function renderDayInspector(dynamicTargets) {
+      const idx = state.selectedDayIndex;
+      const sched = SCHEDULE[idx];
+      const entry = state.days[idx];
+      const dyn = dynamicTargets[idx];
+
+      document.getElementById('dayIndexBadge').textContent = `DÍA ${sched.dayNumber} DE ${TOTAL_DAYS}${sched.isMilestone ? ' · CONTROL DE MEDIDAS Y FOTO' : ''}`;
+      document.getElementById('selectedDayTitle').textContent = sched.fullDate;
+
+      // Update day control bar
+      populateDayDropdown();
+      document.getElementById('prevDayBtn').disabled = (idx === 0);
+      document.getElementById('nextDayBtn').disabled = (idx === TOTAL_DAYS - 1);
+
+      const habitsDoneCount = ['fasting', 'armsAbs', 'cardioGym', 'calories'].filter(k => !!entry.checklist[k]).length;
+      document.getElementById('dayControlSummaryText').textContent = `Hábitos del día: ${habitsDoneCount} de 4`;
+
+      const toggleBtn = document.getElementById('toggleDayCompleteBtn');
+      const toggleIcon = document.getElementById('toggleDayCompleteIcon');
+      const toggleText = document.getElementById('toggleDayCompleteText');
+      if (entry.completed) {
+        toggleBtn.classList.add('is-done');
+        toggleIcon.textContent = '✓';
+        toggleText.textContent = 'Día cumplido y tachado';
+      } else {
+        toggleBtn.classList.remove('is-done');
+        toggleIcon.textContent = '○';
+        toggleText.textContent = 'Tachar día como cumplido';
+      }
+
+      // Targets
+      document.getElementById('targetCaloriesDisplay').textContent = `${dyn.targetCalories} kcal`;
+      const calNote = document.getElementById('calorieAdjustmentNote');
+      if (dyn.caloriePenaltyApplied > 0) {
+        calNote.textContent = `Ajuste aplicado: -${dyn.caloriePenaltyApplied} kcal por exceso del día anterior (Base: ${sched.baseCalories})`;
+      } else {
+        calNote.textContent = `Base ${sched.isWeekend ? 'fin de semana' : 'entre semana'}: ${sched.baseCalories} kcal`;
+      }
+
+      document.getElementById('targetFastingDisplay').textContent = `${dyn.targetFasting} hrs`;
+      const fastNote = document.getElementById('fastingAdjustmentNote');
+      if (dyn.fastingExtraApplied > 0) {
+        fastNote.textContent = `Ajuste aplicado: +${dyn.fastingExtraApplied} hrs pendientes del día anterior`;
+      } else {
+        fastNote.textContent = `Rango objetivo: 16 a 18 horas`;
+      }
+
+      // Inputs
+      document.getElementById('caloriesConsumedInput').value = entry.caloriesConsumed;
+      document.getElementById('fastingHoursInput').value = entry.fastingHours;
+      document.getElementById('exerciseIntensityInput').value = entry.exerciseLevel || '0';
+
+      // Feedback message logic
+      const banner = document.getElementById('calorieFeedbackBanner');
+      banner.className = 'feedback-banner';
+      const rawCal = entry.caloriesConsumed;
+      if (rawCal === '' || rawCal === null) {
+        banner.textContent = `Meta de hoy: ${dyn.targetCalories} kcal. Ingresa tu consumo para calcular el balance.`;
+      } else {
+        const val = parseFloat(rawCal);
+        if (val === 0) {
+          banner.classList.add('awesome');
+          banner.textContent = 'Awesome! 0 kcal registradas hoy.';
+        } else if (val <= dyn.targetCalories) {
+          banner.classList.add('yay');
+          banner.textContent = `Yay! Cumpliste dentro de tu meta (${val} / ${dyn.targetCalories} kcal). Mañana mantienes tus calorías completas.`;
+        } else {
+          const excess = Math.round(val - dyn.targetCalories);
+          banner.classList.add('oops');
+          banner.textContent = `Oops, te pasaste por ${excess} kcal. Mañana tus calorías se reducirán automáticamente en ${excess} kcal.`;
+        }
+      }
+
+      // Checklist
+      ['fasting', 'armsAbs', 'cardioGym', 'calories'].forEach(key => {
+        const checked = !!entry.checklist[key];
+        document.getElementById(`chk_${key}`).checked = checked;
+        const card = document.getElementById(`card_${key}`);
+        if (checked) card.classList.add('checked');
+        else card.classList.remove('checked');
+      });
+
+      // Summary Calculations
+      const burned = parseInt(entry.exerciseLevel || '0', 10);
+      const consumedNum = parseFloat(entry.caloriesConsumed) || 0;
+      const netCal = Math.max(0, consumedNum - burned);
+
+      document.getElementById('dayExpectedWeightLabel').textContent = `${sched.expectedWeight.toFixed(2)} kg`;
+      document.getElementById('dayBurnedCaloriesLabel').textContent = `${burned} kcal`;
+      document.getElementById('dayNetCaloriesLabel').textContent = `${netCal} kcal`;
+
+      const stateLabel = document.getElementById('dayControlStateLabel');
+      if (entry.completed) {
+        stateLabel.textContent = 'Completado';
+        stateLabel.style.color = 'var(--success)';
+      } else if (habitsDoneCount > 0 || entry.caloriesConsumed !== '' || entry.fastingHours !== '') {
+        stateLabel.textContent = `En progreso (${habitsDoneCount}/4)`;
+        stateLabel.style.color = 'var(--accent-gold)';
+      } else {
+        stateLabel.textContent = 'Pendiente';
+        stateLabel.style.color = 'var(--text-secondary)';
+      }
+    }
+
+    function updateCurrentDayField(field, value) {
+      const idx = state.selectedDayIndex;
+      state.days[idx][field] = value;
+
+      if (field === 'exerciseLevel') {
+        const lvl = parseInt(value, 10);
+        if (lvl === 150) state.days[idx].checklist.armsAbs = true;
+        if (lvl === 300) state.days[idx].checklist.cardioGym = true;
+        if (lvl === 450) {
+          state.days[idx].checklist.armsAbs = true;
+          state.days[idx].checklist.cardioGym = true;
+        }
+      }
+
+      saveState();
+      renderAll();
+    }
+
+    function toggleChecklist(key, isChecked) {
+      const idx = state.selectedDayIndex;
+      state.days[idx].checklist[key] = isChecked;
+      saveState();
+      renderAll();
+    }
+
+    function toggleCurrentDayCompleted() {
+      const idx = state.selectedDayIndex;
+      state.days[idx].completed = !state.days[idx].completed;
+      saveState();
+      renderAll();
+    }
+
+    function renderMeasurementsTable() {
+      const tbody = document.getElementById('measurementsTableBody');
+      tbody.innerHTML = '';
+      const baseTotal = 91 + 98 + 32 + 109;
+
+      MILESTONE_DAYS.forEach((m, idx) => {
+        const ms = state.milestones[m.index];
+        const tr = document.createElement('tr');
+
+        const c = parseFloat(ms.cintura);
+        const o = parseFloat(ms.ombligo);
+        const b = parseFloat(ms.brazo);
+        const g = parseFloat(ms.gluteo);
+
+        let diffHtml = '<span style="color: var(--text-muted)">Pendiente</span>';
+        if (!isNaN(c) && !isNaN(o) && !isNaN(b) && !isNaN(g)) {
+          const sum = c + o + b + g;
+          const delta = +(sum - baseTotal).toFixed(1);
+          if (idx === 0) {
+            diffHtml = '<span style="color: var(--text-secondary)">Base (330 cm)</span>';
+          } else if (delta <= 0) {
+            diffHtml = `<span class="diff-badge diff-good">${delta} cm</span>`;
+          } else {
+            diffHtml = `<span style="color: var(--warning)">+${delta} cm</span>`;
+          }
+        }
+
+        tr.innerHTML = `
+          <td><strong>#${idx + 1}</strong> · Día ${m.dayNumber}</td>
+          <td>${m.shortDate}</td>
+          <td><input type="number" step="0.1" value="${ms.cintura}" placeholder="91" onchange="updateMeasurement(${m.index}, 'cintura', this.value)"></td>
+          <td><input type="number" step="0.1" value="${ms.ombligo}" placeholder="98" onchange="updateMeasurement(${m.index}, 'ombligo', this.value)"></td>
+          <td><input type="number" step="0.1" value="${ms.brazo}" placeholder="32" onchange="updateMeasurement(${m.index}, 'brazo', this.value)"></td>
+          <td><input type="number" step="0.1" value="${ms.gluteo}" placeholder="109" onchange="updateMeasurement(${m.index}, 'gluteo', this.value)"></td>
+          <td>${diffHtml}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function updateMeasurement(dayIndex, field, value) {
+      state.milestones[dayIndex][field] = value;
+      saveState();
+      renderAll();
+    }
+
+    function renderPhotoCollage() {
+      const grid = document.getElementById('photoCollageGrid');
+      grid.innerHTML = '';
+
+      MILESTONE_DAYS.forEach((m, idx) => {
+        const ms = state.milestones[m.index];
+        const slot = document.createElement('div');
+        slot.className = 'photo-slot' + (ms.photo ? ' has-image' : '');
+
+        const fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        fileInput.accept = 'image/*';
+        fileInput.style.display = 'none';
+        fileInput.onchange = (e) => handlePhotoUpload(e, m.index);
+
+        slot.onclick = () => fileInput.click();
+
+        if (ms.photo) {
+          slot.innerHTML = `
+            <div class="photo-slot-header">
+              <span>#${idx + 1} · Día ${m.dayNumber}</span>
+              <span>${m.shortDate}</span>
+            </div>
+            <img src="${ms.photo}" alt="Progreso Día ${m.dayNumber}" />
+          `;
+          const delBtn = document.createElement('button');
+          delBtn.className = 'remove-photo-btn';
+          delBtn.textContent = 'Quitar';
+          delBtn.onclick = (e) => {
+            e.stopPropagation();
+            state.milestones[m.index].photo = '';
+            saveState();
+            renderPhotoCollage();
+          };
+          slot.appendChild(delBtn);
+        } else {
+          slot.innerHTML = `
+            <div class="photo-slot-header">
+              <span>FOTO #${idx + 1}</span>
+              <span>${m.shortDate}</span>
+            </div>
+            <div class="photo-placeholder">
+              <span>+</span>
+              Día ${m.dayNumber}<br>Subir foto
+            </div>
+          `;
+        }
+
+        slot.appendChild(fileInput);
+        grid.appendChild(slot);
+      });
+    }
+
+    function handlePhotoUpload(event, dayIndex) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement('canvas');
+          const maxDim = 480;
+          let width = img.width;
+          let height = img.height;
+
+          if (width > height && width > maxDim) {
+            height *= maxDim / width;
+            width = maxDim;
+          } else if (height > maxDim) {
+            width *= maxDim / height;
+            height = maxDim;
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+          const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.72);
+
+          state.milestones[dayIndex].photo = compressedDataUrl;
+          saveState();
+          renderPhotoCollage();
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function openExportModal() {
+      document.getElementById('exportCodeArea').value = JSON.stringify(state);
+      document.getElementById('exportModal').classList.add('open');
+    }
+
+    function closeExportModal() {
+      document.getElementById('exportModal').classList.remove('open');
+    }
+
+    function copyExportCode() {
+      const area = document.getElementById('exportCodeArea');
+      area.select();
+      document.execCommand('copy');
+      alert('Código de progreso copiado al portapapeles.');
+    }
+
+    function importBackupCode() {
+      const raw = document.getElementById('exportCodeArea').value.trim();
+      if (!raw) return;
+      try {
+        const parsed = JSON.parse(raw);
+        if (!parsed.days || !parsed.milestones) {
+          alert('El código ingresado no tiene un formato válido.');
+          return;
+        }
+        state = parsed;
+        saveState();
+        renderAll();
+        closeExportModal();
+        alert('Progreso restaurado correctamente.');
+      } catch (err) {
+        alert('Error al leer el código. Verifica que esté completo.');
+      }
+    }
+
+    function resetAllData() {
+      if (confirm('¿Estás segura de que deseas borrar todos los registros, fotos y reiniciar desde el Día 1?')) {
+        localStorage.removeItem(STORAGE_KEY);
+        state = getDefaultState();
+        saveState();
+        renderAll();
+      }
+    }
+
+    renderAll();
+  </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pen</title>
+  </head>
+  <body>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
